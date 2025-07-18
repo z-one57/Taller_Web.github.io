@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (!/^\d{7,22}$/.test(telefono)) {
-            M.toast({ html: 'Teléfono inválido (solo números, 7 a 22 dígitos)', classes: 'red darken-1' });
+        if (!/^\d{7,9}$/.test(telefono)) {
+            M.toast({ html: 'Teléfono inválido (solo números, 7 a 9 dígitos)', classes: 'red darken-1' });
             return;
         }
 
