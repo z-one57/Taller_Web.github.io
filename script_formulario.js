@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         boton.addEventListener("mouseout", () => {
-            boton.style.color = "";
+            boton.style.color = ""; 
         });
     });
-
+    
     // === CONTADOR DE CARACTERES ===
     const textarea = document.getElementById('comentario');
     const contador = document.getElementById('contador');
@@ -27,17 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // === MOSTRAR MENSAJE SI SE ENVIÓ EXITOSAMENTE ===
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('exito') === '1') {
-        M.toast({ html: '¡Mensaje enviado correctamente!', classes: 'green darken-2' });
-    }
-
-    // === VALIDACIÓN Y MENSAJES ===
+    // === VALIDACIÓN Y MENSAJES TOAST ===
     const botonEnviar = document.getElementById('enviarBtn');
     const formulario = botonEnviar.closest('form');
 
     formulario.addEventListener('submit', function (event) {
+        event.preventDefault();
+
         const nombre = document.getElementById('nombre').value.trim();
         const apellidos = document.getElementById('apellidos').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -45,16 +41,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const comentario = document.getElementById('comentario').value.trim();
 
         if (!nombre || !apellidos || !email || !telefono || !comentario) {
-            event.preventDefault();
             M.toast({ html: 'Por favor, complete todos los campos', classes: 'red darken-1' });
             return;
         }
 
-        if (!/^\d{7,9}$/.test(telefono)) {
-            event.preventDefault();
-            M.toast({ html: 'Teléfono inválido (solo números, 7 a 9 dígitos)', classes: 'red darken-1' });
+        if (!/^\d{7,22}$/.test(telefono)) {
+            M.toast({ html: 'Teléfono inválido (solo números, 7 a 22 dígitos)', classes: 'red darken-1' });
             return;
         }
+
+        M.toast({ html: '¡Mensaje enviado correctamente!', classes: 'green darken-2' });
 
         setTimeout(() => {
             formulario.reset();
